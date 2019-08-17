@@ -3,8 +3,8 @@ const router = express.Router();
 const { check, validationResult } = require('express-validator');
 const User = require('../../models/user');
 const gravatar = require('gravatar');
+const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
-const MongoClient = require('mongodb').MongoClient;
 
 router.get('/', (req, res) => {
     res.send('haha');
@@ -63,7 +63,18 @@ router.post('/create', [
 
         await user.save();
 
-        res.send('User registered');
+        const payload = {
+            user: {
+                id: user.id
+            }
+        }
+
+        jwt.sign(payload, "secret", { expiresIn: 36000 }, (error, token) => {
+            if (error) throw error;
+            res.json({ token });
+        });
+
+        /* res.send('User registered'); */
 
     } catch (error) {
         console.log(error.message);
