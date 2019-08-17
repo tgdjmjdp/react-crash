@@ -1,19 +1,15 @@
-const mongoose = require('mongoose');
-const config = require('config');
-const db = config.get('mongoURI');
+const Mongoose = require('mongoose');
 
 const connectDB = async () => {
     try {
-        await mongoose.connect(db, {
-            useNewUrlParser:true
+        await Mongoose.connect('mongodb://localhost:27017/mern', {
+            useCreateIndex: true,
+            useNewUrlParser: true
         });
-
         console.log('DB Connected');
-
+        
     } catch (error) {
-        console.error(err.message);
-        process.exit(1);
-
+        console.log('NOT Connected')
     }
 }
 
@@ -23,7 +19,7 @@ module.exports = connectDB;
 
 
 
-
+ 
 
 
 
