@@ -4,7 +4,8 @@ const connectDB = async () => {
     try {
         await Mongoose.connect('mongodb://localhost:27017/mern', {
             useCreateIndex: true,
-            useNewUrlParser: true
+            useNewUrlParser: true, 
+            useFindAndModify: false
         });
         console.log('DB Connected');
         
