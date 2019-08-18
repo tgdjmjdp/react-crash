@@ -33,13 +33,16 @@ router.post('/create', [
         let user = await User.findOne({ "name": name });
 
         if (user) {
-            console.log(user);
+            console.log('====================================');
+            console.log("user exists");
+            console.log('====================================');
 
             return res.status(400).json({
                 errors: [{
                     msg: 'User exists'
                 }]
             });
+
         }
 
         const avatar = gravatar.url(email, {
@@ -61,8 +64,13 @@ router.post('/create', [
 
         console.log(user);
 
+        const createUser = await user.save();
 
-        await user.save();
+        if (createUser) {
+            console.log('====================================');
+            console.log("user " + user.name + " is created");
+            console.log('====================================');
+        }
 
         const payload = {
             user: {
@@ -73,18 +81,18 @@ router.post('/create', [
         jwt.sign(payload, config.get('jwtToken'), { expiresIn: 360000 }, (error, token) => {
             if (error) throw error;
             res.json({ token });
+            console.log('====================================');
+            console.log("token generated");
+            console.log('====================================');
+            console.log(token);
+            console.log('====================================');
         });
-        
-
-        /* res.send('User registered'); */
 
     } catch (error) {
         console.log(error.message);
         res.status(500).send('Server Error');
     }
 
-    /*     console.log(req.body);
-        res.send('create user route'); */
 });
 
 module.exports = router;
