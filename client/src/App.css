@@ -308,6 +308,7 @@ button {
   z-index: 1;
   width: 100%;
   top: 0;
+  background-color: #3f729b;
   border-bottom: solid 1px var(--primary-color);
   opacity: 0.9;
 }

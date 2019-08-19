@@ -37,18 +37,28 @@ const Register = props => {
             try {
                 const config = {
                     headers: {
-                        'Content-Type': 'application/json'
+                        'Content-Type': 'application/json',
+                        'Access-Control-Allow-Methods': 'GET, POST, PATCH, PUT, DELETE, OPTIONS',
+                        'Access-Control-Allow-Headers': 'Origin, Content-Type, X-Auth-Token'
                     }
                 }
 
                 const body = JSON.stringify(newUser);
 
-                const res = await axios.post('/api/users', body, config);
+                console.log('====================================');
+                console.log(body);
+                console.log('====================================');
 
-                console.log(res.data);
-                
+                const res = await axios.post('http://localhost:5000/api/user', body, config); 
+
+                console.log('====================================');
+                console.log('SEND TO BACKEND');
+                console.log('====================================');
+
+                console.log(res.response.data);
+
             } catch (error) {
-                
+
                 console.log(error.response.data);
             }
         }
