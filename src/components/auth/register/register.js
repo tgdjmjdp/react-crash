@@ -22,7 +22,7 @@ const Register = props => {
             console.log(formData)
         }
     };
-
+ 
     return (
         <Fragment>
             <section className="container">
