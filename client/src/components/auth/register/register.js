@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from 'react';
 import axios from 'axios';
 
-const Register = props => {
+const Register = () => {
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -22,7 +22,9 @@ const Register = props => {
     console.log(formData);
 
     const onSubmit = async e => {
+
         e.preventDefault();
+
         if (e.target.password.value !== e.target.conpassword.value) {
             console.log(e.target.password.value);
             console.log(e.target.conpassword.value);
@@ -35,11 +37,10 @@ const Register = props => {
             }
 
             try {
+                
                 const config = {
                     headers: {
-                        'Content-Type': 'application/json',
-                        'Access-Control-Allow-Methods': 'GET, POST, PATCH, PUT, DELETE, OPTIONS',
-                        'Access-Control-Allow-Headers': 'Origin, Content-Type, X-Auth-Token'
+                        'Content-Type': 'application/json'
                     }
                 }
 
@@ -49,17 +50,15 @@ const Register = props => {
                 console.log(body);
                 console.log('====================================');
 
-                const res = await axios.post('http://localhost:5000/api/user', body, config); 
+                const res = await axios.post('http://localhost:5000/api/user/create', body, config);
 
                 console.log('====================================');
                 console.log('SEND TO BACKEND');
                 console.log('====================================');
 
-                console.log(res.response.data);
-
             } catch (error) {
 
-                console.log(error.response.data);
+                console.log(error);
             }
         }
     };
