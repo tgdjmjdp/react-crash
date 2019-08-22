@@ -1,8 +1,12 @@
 import React, { Fragment, useState } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
+/* import axios from 'axios'; */
+import { connect } from'react-redux';
+import { setAlert } from '../../../actions/action-alert';
+import { register } from '../../../actions/action-auth';
+import PropTypes from 'prop-types';
 
-const Register = () => {
+const Register = ({ setAlert, register }) => {
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -16,18 +20,17 @@ const Register = () => {
         ...formData, [e.target.name]: e.target.value
     });
 
-    console.log(formData);
-
     const onSubmit = async e => {
 
         e.preventDefault();
 
         if (e.target.password.value !== e.target.conpassword.value) {
-            console.log(e.target.password.value);
-            console.log(e.target.conpassword.value);
-            console.log("Passwords do not match");
+            setAlert('Password not matched', 'danger');
         } else {
-            const newUser = {
+
+            register({ name, email, password });
+
+            /* const newUser = {
                 name,
                 email,
                 password
@@ -47,7 +50,7 @@ const Register = () => {
                 console.log(body);
                 console.log('====================================');
 
-                const res = await axios.post('http://localhost:5000/api/user/create', body, config);
+                await axios.post('http://localhost:5000/api/user/create', body, config);
 
                 console.log('====================================');
                 console.log('SEND TO BACKEND');
@@ -56,7 +59,7 @@ const Register = () => {
             } catch (error) {
 
                 console.log(error);
-            }
+            } */
         }
     };
 
@@ -120,4 +123,9 @@ const Register = () => {
     );
 }
 
-export default Register;
+Register.propTypes = {
+    setAlert: PropTypes.func.isRequired,
+    register: PropTypes.func.isRequired
+}
+
+export default connect(null, { setAlert, register })(Register);

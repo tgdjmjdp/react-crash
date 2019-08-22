@@ -1,16 +1,13 @@
 import React, { Fragment, useState } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
 
 const Login = () => {
     const [formData, setFormData] = useState({
-        name: '',
         email: '',
-        password: '',
-        conpassword: ''
+        password: ''
     });
 
-    const { name, email, password, conpassword } = formData;
+    const { email, password } = formData;
 
     const onChange = e => setFormData({
         ...formData, [e.target.name]: e.target.value
@@ -22,42 +19,6 @@ const Login = () => {
 
         e.preventDefault();
 
-        if (e.target.password.value !== e.target.conpassword.value) {
-            console.log(e.target.password.value);
-            console.log(e.target.conpassword.value);
-            console.log("Passwords do not match");
-        } else {
-            const newUser = {
-                name,
-                email,
-                password
-            }
-
-            try {
-                
-                const config = {
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                }
-
-                const body = JSON.stringify(newUser);
-
-                console.log('====================================');
-                console.log(body);
-                console.log('====================================');
-
-                const res = await axios.post('http://localhost:5000/api/user/create', body, config);
-
-                console.log('====================================');
-                console.log('SEND TO BACKEND');
-                console.log('====================================');
-
-            } catch (error) {
-
-                console.log(error);
-            }
-        }
     };
 
     return (
