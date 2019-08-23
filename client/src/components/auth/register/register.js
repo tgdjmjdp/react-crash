@@ -1,12 +1,12 @@
 import React, { Fragment, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 /* import axios from 'axios'; */
 import { connect } from'react-redux';
 import { setAlert } from '../../../actions/action-alert';
 import { register } from '../../../actions/action-auth';
 import PropTypes from 'prop-types';
 
-const Register = ({ setAlert, register }) => {
+const Register = ({ setAlert, register, isAuthenicated }) => {
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -30,38 +30,12 @@ const Register = ({ setAlert, register }) => {
 
             register({ name, email, password });
 
-            /* const newUser = {
-                name,
-                email,
-                password
-            }
-
-            try {
-                
-                const config = {
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                }
-
-                const body = JSON.stringify(newUser);
-
-                console.log('====================================');
-                console.log(body);
-                console.log('====================================');
-
-                await axios.post('http://localhost:5000/api/user/create', body, config);
-
-                console.log('====================================');
-                console.log('SEND TO BACKEND');
-                console.log('====================================');
-
-            } catch (error) {
-
-                console.log(error);
-            } */
         }
     };
+
+    if(isAuthenicated){
+        return <Redirect to="/dashboard"></Redirect>
+    }
 
     return (
         <Fragment>
@@ -125,7 +99,12 @@ const Register = ({ setAlert, register }) => {
 
 Register.propTypes = {
     setAlert: PropTypes.func.isRequired,
-    register: PropTypes.func.isRequired
+    register: PropTypes.func.isRequired,
+    isAuthenicated: PropTypes.bool
 }
 
-export default connect(null, { setAlert, register })(Register);
+const mapStateToProps = state => ({
+    isAuthenicated: state.auth.isAuthenicated
+});
+
+export default connect(mapStateToProps, { setAlert, register })(Register);

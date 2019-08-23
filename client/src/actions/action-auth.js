@@ -1,5 +1,15 @@
 import axios from 'axios';
-import { REGISTER_FAIL, REGISTER_SUCCESS, USER_LOADED, AUTH_ERROR } from './action-types';
+
+import {
+    REGISTER_FAIL,
+    REGISTER_SUCCESS,
+    USER_LOADED,
+    AUTH_ERROR,
+    LOGIN_FAIL,
+    LOGIN_OK,
+    LOGOUT
+} from './action-types';
+
 import { setAlert } from './action-alert';
 import setAuthToken, { } from '../utils/setAuthToken';
 
@@ -22,6 +32,8 @@ export const register = ({
             payload: res.data
         });
 
+        dispatch(loadUser());
+
     } catch (error) {
 
         const errors = error.reponse;
@@ -41,8 +53,15 @@ export const register = ({
 }
 
 export const loadUser = () => async dispatch => {
+
     if (localStorage.token) {
         setAuthToken(localStorage.token);
+        console.log("has token");
+
+    } else {
+        console.log('====================================');
+        console.log("no token");
+        console.log('====================================');
     }
 
     try {
@@ -52,10 +71,59 @@ export const loadUser = () => async dispatch => {
             type: USER_LOADED,
             payload: res.data
         });
+
     } catch (err) {
+        console.log("cant get auth");
+
         dispatch({
             type: AUTH_ERROR
         });
     }
 }
 
+export const login = ({ email, password }) => async dispatch => {
+
+    const config = {
+        headers: {
+            'Content-Type': 'Application/json'
+        }
+    }
+
+    console.log('====================================');
+    console.log(email);
+    console.log('====================================');
+
+    const body = JSON.stringify({ email, password });
+
+    try {
+
+        const res = await axios.post('/api/auth/', body, config);
+
+        dispatch({
+            type: LOGIN_OK,
+            payload: res.data
+        });
+
+        dispatch(loadUser());
+
+    } catch (error) {
+
+        const errors = error.reponse;
+
+        if (errors) {
+            errors.forEach(
+                errors => dispatch(setAlert(errors.msg, 'danger'))
+            );
+            console.log('====================================');
+            console.log("ERROR");
+            console.log('====================================');
+        }
+        dispatch({
+            type: LOGIN_FAIL
+        });
+    }
+}
+
+export const logout = () => dispatch => {
+    dispatch({ type: LOGOUT });
+}
