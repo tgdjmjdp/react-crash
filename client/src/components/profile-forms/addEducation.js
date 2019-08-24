@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Link, withRouter } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { addEducation } from '../../actions/action-profile';
 
 const AddEducation = ({ addEducation, history }) => {
@@ -11,7 +11,7 @@ const AddEducation = ({ addEducation, history }) => {
         fieldofstudy: '',
         from: '',
         to: '',
-        current: '',
+        current: false,
         description: ''
     });
 

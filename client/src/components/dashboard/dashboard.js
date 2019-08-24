@@ -3,12 +3,15 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Spinner from '../spinner/spinner';
-import { getCurrentProfile } from '../../actions/action-profile';
+import { getCurrentProfile, deleteAccount } from '../../actions/action-profile';
 import DashboardAction from './dashboardAction';
+import Experience from './experience';
+import Education from './education';
 
 const Dashboard = ({
     getCurrentProfile,
     auth: { user },
+    deleteAccount,
     profile: { profile, loading }
 }) => {
     useEffect(() => {
@@ -16,6 +19,7 @@ const Dashboard = ({
     }, [getCurrentProfile]);
 
     return loading && profile === null ? <Spinner /> : <Fragment>
+        <p>ຍິນດີຕ້ອນຮັບ {user && user.name}</p>
         <h1 className="larg text-primary">
             ໜ້າຫຼັກ
         </h1>
@@ -23,6 +27,16 @@ const Dashboard = ({
         {profile !== null ? (
             <Fragment>
                 <DashboardAction></DashboardAction>
+                <Experience experience={ profile.experience }></Experience>
+                <Education education={ profile.education }></Education>
+                <div className="my-2">
+                    <button 
+                    className="btn btn-danger"
+                    onClick={() => deleteAccount()}
+                    >
+                        ລົບຜູ້ໃຊ້ງານນີ້
+                    </button>
+                </div>
             </Fragment>
         ) : (
                 <Fragment>
@@ -32,14 +46,14 @@ const Dashboard = ({
                     </Link>
                     </Fragment>
             )}
-        <p>ຍິນດີຕ້ອນຮັບ {user && user.name}</p>
     </Fragment>
 };
 
 Dashboard.propTypes = {
     getCurrentProfile: PropTypes.func.isRequired,
     auth: PropTypes.object.isRequired,
-    profile: PropTypes.object.isRequired
+    profile: PropTypes.object.isRequired,
+    deleteAccount: PropTypes.func.isRequired
 }
 
 const mapStateToProps = state => ({
@@ -47,4 +61,4 @@ const mapStateToProps = state => ({
     profile: state.profile
 });
 
-export default connect(mapStateToProps, { getCurrentProfile })(Dashboard);
+export default connect(mapStateToProps, { deleteAccount, getCurrentProfile })(Dashboard);
