@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Spinner from '../spinner/spinner';
 import { getCurrentProfile } from '../../actions/action-profile';
+import DashboardAction from './dashboardAction';
 
 const Dashboard = ({
     getCurrentProfile,
@@ -16,11 +17,13 @@ const Dashboard = ({
 
     return loading && profile === null ? <Spinner /> : <Fragment>
         <h1 className="larg text-primary">
-            Dashboard
+            ໜ້າຫຼັກ
         </h1>
         <p className="lead"></p>
         {profile !== null ? (
-            <Fragment><p>HAS</p></Fragment>
+            <Fragment>
+                <DashboardAction></DashboardAction>
+            </Fragment>
         ) : (
                 <Fragment>
                     <p>ເຈົ້າຍັງບໍ່ມີໂປຣໄຟລ໌</p>

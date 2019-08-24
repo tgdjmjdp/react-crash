@@ -9,6 +9,8 @@ import Navbar from './components/navbar/Navbar';
 import Landing from './components/landing/landing';
 import Dashboard from './components/dashboard/dashboard';
 import PrivateRoute from './components/routing/privateRoute';
+import CreateProfile from './components/profile-forms/createProfile';
+import EditProfile from './components/profile-forms/editProfile';
 
 import { Provider } from 'react-redux';
 import Alert from './components/alert/alert';
@@ -38,6 +40,8 @@ const App = () => {
               <Route exact path="/register" component={Register}></Route>
               <Route exact path="/login" component={Login}></Route>
               <PrivateRoute exact path="/dashboard" component={Dashboard}></PrivateRoute>
+              <PrivateRoute exact path="/create-profile" component={CreateProfile}></PrivateRoute>
+              <PrivateRoute exact path="/edit-profile" component={EditProfile}></PrivateRoute>
             </Switch>
           </section>
         </Fragment>

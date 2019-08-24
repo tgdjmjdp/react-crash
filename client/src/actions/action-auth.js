@@ -115,9 +115,6 @@ export const login = ({ email, password }) => async dispatch => {
             errors.forEach(
                 errors => dispatch(setAlert(errors.msg, 'danger'))
             );
-            console.log('====================================');
-            console.log("ERROR");
-            console.log('====================================');
         }
         dispatch({
             type: LOGIN_FAIL
