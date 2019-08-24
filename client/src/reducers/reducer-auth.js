@@ -5,7 +5,8 @@ import {
     AUTH_ERROR,
     LOGIN_FAIL,
     LOGIN_OK,
-    LOGOUT
+    LOGOUT,
+    CLEAR_PROFILE
 } from '../actions/action-types';
 
 const initialState = {
@@ -48,6 +49,13 @@ export default function (state = initialState, action) {
                 ...state,
                 token: null,
                 isAuthenicated: false,
+                loading: false
+            }
+        case CLEAR_PROFILE:
+            return {
+                ...state,
+                profile: null,
+                repos: [],
                 loading: false
             }
         default:

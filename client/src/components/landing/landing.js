@@ -1,25 +1,41 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './landing.css';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
-export default class landing extends Component {
-    render() {
-        return (
-            <section className="landing">
-                <div className="dark-overlay">
-                    <div className="landing-inner">
-                        <h1 className="x-large">Developer Connector</h1>
-                        <p className="lead">
-                            Create a developer profile/portfolio, share posts and get help from
-                            other developers
-      </p>
-                        <div className="buttons">
-                            <Link to="/register" className="btn btn-primary">Sign Up</Link>
-                            <Link to="login" className="btn btn-light">Login</Link>
-                        </div>
+const Landing = ({ isAuthenicated }) => {
+
+    if(isAuthenicated){
+        return <Redirect to='/dashboard'></Redirect>
+    }
+
+    return (
+        <section className="landing">
+            <div className="dark-overlay">
+                <div className="landing-inner">
+                    <h1 className="x-large">Developer Connector</h1>
+                    <p className="lead">
+                        Create a developer profile/portfolio, share posts and get help from
+                        other developers
+                    </p>
+                    <div className="buttons">
+                        <Link to="/register" className="btn btn-primary">Sign Up</Link>
+                        <Link to="login" className="btn btn-light">Login</Link>
                     </div>
                 </div>
-            </section>
-        )
-    }
+            </div>
+        </section>
+    )
+
 }
+
+Landing.propTypes = {
+    isAuthenicated: PropTypes.bool
+}
+
+const mapStatetoProp = state => ({
+    isAuthenicated: state.auth.isAuthenicated
+});
+
+export default connect(mapStatetoProp)(Landing);

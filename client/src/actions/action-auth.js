@@ -7,7 +7,8 @@ import {
     AUTH_ERROR,
     LOGIN_FAIL,
     LOGIN_OK,
-    LOGOUT
+    LOGOUT,
+    CLEAR_PROFILE
 } from './action-types';
 
 import { setAlert } from './action-alert';
@@ -126,4 +127,10 @@ export const login = ({ email, password }) => async dispatch => {
 
 export const logout = () => dispatch => {
     dispatch({ type: LOGOUT });
+    const clear = dispatch({ type: CLEAR_PROFILE });
+    if (clear){
+        console.log('====================================');
+        console.log("CLEAR PROFILE");
+        console.log('====================================');
+    }
 }
