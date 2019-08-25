@@ -29,7 +29,7 @@ const ProFiles = ({
                             {
                                 profiles.length > 0 ? ( 
                                     profiles.map(profile => (
-                                        <ProFileItem key={ profile._id } profile={ profile } />
+                                        <ProFileItem key={ profile._id } profile={ profile } ></ProFileItem>
                                     ))
                                 ) 
                                 :

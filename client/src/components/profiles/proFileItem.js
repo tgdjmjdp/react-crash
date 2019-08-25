@@ -27,7 +27,7 @@ const ProFileItem = ({
             <ul>
                 {
                     skills.slice(0, 4).map((skill, index) => (
-                        <li kry={ index } className="text-primary">
+                        <li key={ index } className="text-primary">
                             {
                                 skill
                             }
