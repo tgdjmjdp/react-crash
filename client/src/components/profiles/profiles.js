@@ -12,7 +12,7 @@ const ProFiles = ({
 
     useEffect(() => {
         getProfiles();
-    }, []);
+    }, [getProfiles]);
 
     return (
         <Fragment>

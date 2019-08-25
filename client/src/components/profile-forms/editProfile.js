@@ -46,7 +46,8 @@ const EditProfile = ({
         });
 
     }, [
-            loading
+            loading,
+            getCurrentProfile
         ]);
 
     const {
