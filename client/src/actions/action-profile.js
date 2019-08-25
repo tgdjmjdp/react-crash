@@ -1,8 +1,20 @@
 import axios from 'axios';
 import { setAlert } from './action-alert';
-import { GET_PROFILE, PROFILE_ERROR, UPDATE_PROFILE, ACCOUNT_DELETED, CLEAR_PROFILE } from './action-types';
+import {
+    GET_PROFILE,
+    PROFILE_ERROR,
+    UPDATE_PROFILE, 
+    ACCOUNT_DELETED,
+    CLEAR_PROFILE,
+    GET_PROFILES
+} from './action-types';
 
 export const getCurrentProfile = () => async dispatch => {
+
+    dispatch({
+        type: CLEAR_PROFILE
+    });
+
     try {
         const res = await axios.get('/api/profile/ku');
 
@@ -10,6 +22,47 @@ export const getCurrentProfile = () => async dispatch => {
             type: GET_PROFILE,
             payload: res.data
         });
+    } catch (error) {
+        dispatch({
+            type: PROFILE_ERROR,
+            payload: {
+                msg: error.reponse,
+                status: error.status
+            }
+        });
+    }
+}
+
+export const getProfiles = () => async dispatch => {
+
+    try {
+        const res = await axios.get('/api/profile');
+
+        dispatch({
+            type: GET_PROFILES,
+            payload: res.data
+        });
+    } catch (error) {
+        dispatch({
+            type: PROFILE_ERROR,
+            payload: {
+                msg: error.reponse,
+                status: error.status
+            }
+        });
+    }
+}
+
+export const getProfileById = userId => async dispatch => {
+
+    try {
+        const res = await axios.get('/api/profile/user/' + userId);
+
+        dispatch({
+            type: GET_PROFILE,
+            payload: res.data
+        });
+        
     } catch (error) {
         dispatch({
             type: PROFILE_ERROR,
