@@ -148,7 +148,7 @@ router.put('/like/:id', auth, async (req, res) => {
         res.json(post.likes);
 
         console.log('====================================');
-        console.log("Post liked");
+        console.log("Post liked" + res.likes);
         console.log('====================================');
 
     } catch (error) {
@@ -181,7 +181,7 @@ router.put('/unlike/:id', auth, async (req, res) => {
         res.json(post.likes);
 
         console.log('====================================');
-        console.log("Post unliked");
+        console.log("Post unliked" + res);
         console.log('====================================');
 
     } catch (error) {

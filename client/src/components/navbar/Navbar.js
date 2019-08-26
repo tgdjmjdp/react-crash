@@ -15,6 +15,13 @@ const Navbar = ({ auth: { isAuthenicated, loading }, logout }) => {
                 </Link>
             </li>
             <li className="nav-item">
+                <Link to="/posts">
+                    <span>
+                        Posts
+                    </span>
+                </Link>
+            </li>
+            <li className="nav-item">
                 <Link to="/dashboard">
                     <span>
                         Dashboard

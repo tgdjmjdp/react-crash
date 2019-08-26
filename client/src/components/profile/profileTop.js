@@ -1,7 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Link } from 'react-router-dom'
-import { connect } from 'react-redux'
 
 const ProfileTop = ({
     profile: {
@@ -32,42 +30,42 @@ const ProfileTop = ({
             <div className="icons my-1">
                 {
                     website && (
-                        <a href={website} target='_blank'>
+                        <a href={website} target='_blank' rel="noopener noreferrer">
                             Website
                         </a>
                     )
                 }
                 {
                     social && social.twtitter && (
-                        <a href={social.twtitter} target='_blank'>
+                        <a href={social.twtitter} target='_blank' rel="noopener noreferrer">
                             Twitter
                         </a>
                     )
                 }
                 {
                     social && social.youtube && (
-                        <a href={social.youtube} target='_blank'>
+                        <a href={social.youtube} target='_blank' rel="noopener noreferrer">
                             Youtube
                         </a>
                     )
                 }
                 {
                     social && social.linkedin && (
-                        <a href={social.linkedin} target='_blank'>
+                        <a href={social.linkedin} target='_blank' rel="noopener noreferrer">
                             LinkedIn
                         </a>
                     )
                 }
                 {
                     social && social.facebook && (
-                        <a href={social.facebook} target='_blank'>
+                        <a href={social.facebook} target='_blank' rel="noopener noreferrer">
                             Facebook
                         </a>
                     )
                 }
                 {
                     social && social.instagram && (
-                        <a href={social.instagram} target='_blank'>
+                        <a href={social.instagram} target='_blank' rel="noopener noreferrer">
                             Instagram
                         </a>
                     )
