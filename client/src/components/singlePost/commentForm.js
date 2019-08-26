@@ -7,6 +7,10 @@ const CommentForm = ({ postId, addComment }) => {
     
     const [text, setText] = useState('');
 
+    console.log('====================================');
+    console.log(postId);
+    console.log('====================================');
+
     return (
         <div className="post-form">
             <div className="bg-primary p">

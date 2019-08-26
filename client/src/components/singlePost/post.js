@@ -6,7 +6,7 @@ import Spinner from '../spinner/spinner'
 import { getPost } from '../../actions/action-post'
 import PostItem from '../post/postItem'
 import CommentForm from './commentForm'
-import CommentItem from './CommentItem' 
+import CommentItem from './commentItem'
 
 const Post = ({
     getPost,
@@ -30,10 +30,10 @@ const Post = ({
                 {
                     post.comments.map(
                         comment => (
-                            <CommentItem 
+                            <CommentItem
+                                postId={post._id}
                                 key={comment._id}
                                 comment={comment}
-                                postId={post._id}
                             />
                         )
                     )
@@ -44,6 +44,7 @@ const Post = ({
 }
 
 Post.propTypes = {
+    postId: PropTypes.string.isRequired,
     getPost: PropTypes.func.isRequired,
     post: PropTypes.object.isRequired
 }
